@@ -74,6 +74,21 @@ def CA_2d(N=50, phase=300):
     plt.pause(0.01)  
   plt.show()    
 
+def CA_traffic(N=128, phase=128):
+  img = np.zeros((phase, N))
+  inflow_rate  = 0.7
+  R = np.array([0,0,0,1,1,1,0,1])
+  img[0, 1:20] = 1
+  for p in range(1, phase):
+    i0 = img[p-1,:N-2]
+    i1 = img[p-1,1:N-1]
+    i2 = img[p-1,2:N]
+    img[p, 1:N-1] = R[(4*i0 + 2*i1 + i2).astype(np.uint8)]
+    img[p, 0] = 1 if img[p,1] == 0 and np.random.rand() > inflow_rate else 0
+  fig = plt.figure()
+  plt.imshow(img)
+  plt.show()
+
 
 def get_arround8(src):
   h, w = src.shape
@@ -91,7 +106,8 @@ def get_arround8(src):
 if __name__ == '__main__':
 #  CA_1d()
 #  movie_CA1d()
-  CA_2d()
+#  CA_2d()
+  CA_traffic()
 
 
 
