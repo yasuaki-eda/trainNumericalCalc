@@ -20,6 +20,9 @@ def python_random():
     x = random.randint(0, 4)
     print(x)
 
+'''
+ 台形公式による4分円の面積計算
+'''
 def trapezoid_rule(x0, xn, fx, d=100):
   h = (xn - x0) / d
   S = 0
@@ -34,6 +37,24 @@ def circle_1q(x):
   if x < 0 or x > 1:
     return 0
   return math.sqrt(1-x**2)
+
+'''
+  乱数生成による四分円の面積計算
+'''
+def ri(N=100000, phase=10):
+  np.random.seed(0)
+  res = np.zeros((phase))
+  for p in range(phase):
+    count_in = 0
+    for n in range(N):
+      rx = np.random.random()
+      ry = np.random.random()
+      if rx**2+ry**2 <= 1:
+        count_in += 1
+    res[p] = count_in / n
+  
+  return res
+
 
 def test_trape():
   d = 10
@@ -50,8 +71,15 @@ def test_trape():
   print('d:',d, ' S:', 4*S)
 
 
+def test_ri():
+  p = 10
+  res = ri(N=1000000, phase=p)
+  print(res*4)
+
 if __name__ =='__main__':
 #  linear_congruential_generator()
 #  python_random()
-  test_trape()
+#  test_trape()
+  test_ri()
+
 
