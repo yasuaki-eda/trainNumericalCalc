@@ -55,6 +55,35 @@ def ri(N=100000, phase=10):
   
   return res
 
+def random_knapsack(weight_limit=250, phase=10, cycle=100):
+  baggage = np.array([
+    [87, 66, 70, 25, 33, 24, 89,63, 23, 54],
+    [96, 55, 21, 58, 41, 81, 8, 99, 59, 62]
+  ])
+  np.random.seed(3)
+#  l = np.append(l, baggage[:,1].reshape(2,1), axis=1)
+
+  for p in range(phase):
+    value = 0
+    good_list = []
+    for c in range(cycle):
+      list_baggage = np.zeros((2, 0))
+      random_list = baggage[:, np.random.choice(baggage.shape[1], baggage.shape[1], replace=False)]
+      weight = 0
+      for r in range(random_list.shape[1]):
+        tmp_weight = weight + random_list[0,r]
+        if weight_limit <= tmp_weight:
+          break
+        weight += random_list[0,r]
+        list_baggage = np.append(list_baggage, random_list[:,r].reshape(2,1), axis=1)
+      if value <= np.sum(list_baggage[1,:]):
+        value = np.sum(list_baggage[1,:])
+        good_list = np.copy(list_baggage)
+    print( 'value:', value, ' weight:', np.sum(good_list[0,:]), 'list:', good_list)
+      
+
+
+
 
 def test_trape():
   d = 10
@@ -76,10 +105,14 @@ def test_ri():
   res = ri(N=1000000, phase=p)
   print(res*4)
 
+def test_knapsack():
+  random_knapsack()
+
 if __name__ =='__main__':
 #  linear_congruential_generator()
 #  python_random()
 #  test_trape()
-  test_ri()
+#  test_ri()
+  test_knapsack()
 
 
