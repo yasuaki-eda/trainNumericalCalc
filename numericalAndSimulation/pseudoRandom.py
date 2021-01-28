@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import math
+import matplotlib.pyplot as plt
 
 def linear_congruential_generator():
   m = 2**32
@@ -55,6 +56,9 @@ def ri(N=100000, phase=10):
   
   return res
 
+'''
+  乱数によるナップザック問題の解析
+'''
 def random_knapsack(weight_limit=250, phase=10, cycle=100):
   baggage = np.array([
     [87, 66, 70, 25, 33, 24, 89,63, 23, 54],
@@ -80,9 +84,19 @@ def random_knapsack(weight_limit=250, phase=10, cycle=100):
         value = np.sum(list_baggage[1,:])
         good_list = np.copy(list_baggage)
     print( 'value:', value, ' weight:', np.sum(good_list[0,:]), 'list:', good_list)
-      
 
-
+def random_walk(time_limit=1000):
+  X = np.zeros((2,1))
+#  np.random.seed(0)
+  for t in range(time_limit):
+    x = X[0,t] + (np.random.random() - 0.5) * 2
+    y = X[1,t] + (np.random.random() - 0.5) * 2
+    X = np.append(X, [[x],[y]], axis=1)
+  
+  fig = plt.figure()
+  ax = fig.add_subplot(111)
+  ax.plot(X[0,:], X[1,:])
+  plt.show()
 
 
 def test_trape():
@@ -113,6 +127,7 @@ if __name__ =='__main__':
 #  python_random()
 #  test_trape()
 #  test_ri()
-  test_knapsack()
+#  test_knapsack()
+  random_walk(time_limit=1000)
 
 
