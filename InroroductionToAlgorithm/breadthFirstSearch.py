@@ -19,7 +19,7 @@ def BFS(G, s):
   q = queue.Queue()
   WHITE, GRAY, BLACK = 0, 1, 2
   color = np.ones(size) * WHITE
-  d = np.ones(size) * 2e32
+  d = np.ones(size) * 1e10
   pi = np.ones(size) *(-1)
   color[s] = GRAY
   d[s] = 0
