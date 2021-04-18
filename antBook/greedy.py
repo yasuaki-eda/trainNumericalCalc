@@ -1,4 +1,6 @@
 import numpy as np
+import random
+import string
 
 
 '''
@@ -59,16 +61,53 @@ def schedule_greedy():
   print(task_count)
   return task_count
 
-
 def init_schedule():
   n = 5
   s = [1, 2, 4, 6, 8]
   t = [3, 5, 7, 9, 10]
   return n, s, t
 
+'''
+ Best Cow Line(p45)
+'''
+def cowline_greedy():
+  N = 10
+  S = get_random_uppercase(N)
+  print('start. S:' + str(''.join(S)))
+  T = []
+  a = 0
+  b = len(S)-1
+  while a <= b:
+    flg = False
+    a1 = a
+    b1 = b
+    while a1 <= b1:
+      if S[a1] < S[b1]:
+        T.append(S[a])
+        a += 1
+        break
+      elif S[a1] > S[b1]:
+        T.append(S[b])
+        b -= 1
+        break
+      if (a1 == b1): 
+        T.append(S[a])
+        a += 1
+        break
+      a1 += 1
+      b1 -= 1
+  print('end. T:' + str(''.join(T)))
+
+
+def get_random_uppercase(num):
+  dat = string.ascii_uppercase
+  return [random.choice(dat) for i in range(num)]
+
+
 if __name__ == '__main__':
 #  coin_greedy()
-  schedule_greedy()
+#  schedule_greedy()
+  cowline_greedy()
 
 
 
